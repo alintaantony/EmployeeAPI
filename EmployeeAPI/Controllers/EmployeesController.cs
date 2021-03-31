@@ -22,37 +22,51 @@ namespace EmployeeAPI.Controllers
         [HttpGet]
         public IEnumerable<Employees> GetAllEmployees()
         {
-            _log4net.Info("Get All Employees is Called !!");
+            _log4net.Info("Get All Employees Was Called !!");
             return _context.GetAllEmployees();
         }
         [HttpGet("{id}")]
         public IActionResult GetEmployeeById(int id)
         {
-            _log4net.Info("Get Employee By ID is Called !!");
+            _log4net.Info("Get Employee By ID Was Called !!");
             if(!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
-
-            var employee = _context.GetEmployeeById(id);
-            _log4net.Info("Employee of Id " + id + " is called");
-            if(employee == null)
+            try
             {
-                return NotFound();
+                var employee = _context.GetEmployeeById(id);
+                _log4net.Info("Employee of Id " + id + " Was called");
+                if (employee == null)
+                {
+                    return NotFound();
+                }
+                return Ok(employee);
             }
-            return Ok(employee);
+            catch(Exception)
+            {
+                return BadRequest();
+            }
         }
 
         [HttpPost]
         public async Task<IActionResult> PostEmployees(Employees item)
         {
-            _log4net.Info("Post Employees is called !!");
+            _log4net.Info("Post Employees Was called !!");
             if(!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
-            var addEmployee = await _context.PostEmployees(item);
-            return Ok(addEmployee);
+            try
+            {
+                var addEmployee = await _context.PostEmployees(item);
+                return Ok(addEmployee);
+            }
+            catch(Exception)
+            {
+                return BadRequest();
+            }
         }
+
     }
 }
