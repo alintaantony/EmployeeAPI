@@ -87,7 +87,11 @@ namespace EmployeeAPI.Repository
         public async Task<Employees> UpdateEmployeeRating(int id,int item)
         {
             Employees employee = await _context.Employees.FindAsync(id);
-            int newrating = (int)((employee.EmployeeRating+item)/2);
+            int newrating = (int)Math.Ceiling((double)((employee.EmployeeRating+item+0.1)/2));
+            if(newrating > 5)
+            {
+                newrating = 5;
+            }
             employee.EmployeeRating = newrating;
             await _context.SaveChangesAsync();
             return employee;
