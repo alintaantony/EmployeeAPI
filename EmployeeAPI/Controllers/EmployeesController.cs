@@ -68,5 +68,45 @@ namespace EmployeeAPI.Controllers
             }
         }
 
+        [HttpPost("UpdateEmployeeWallet/{id}")]
+        public async Task<IActionResult> UpdateEmployeeWallet(int id, Employees item)
+        {
+            _log4net.Info("Update Employee Wallert For Employee With Id " + id + " Was Called !!");
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+            try
+            {
+                int wallet = Convert.ToInt32(item.EmployeeWallet);
+                var updateWallet = await _context.UpdateEmployeeWallet(id, wallet);
+                return Ok(updateWallet);
+            }
+            catch (Exception)
+            {
+                return BadRequest();
+            }
+        }
+
+        [HttpPost("UpdateEmployeeRating/{id}")]
+        public async Task<IActionResult> UpdateEmployeeRating(int id, Employees item)
+        {
+            _log4net.Info("Update Employee Rating For Employee With Id " + id + " Was Called !!");
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+            try
+            {
+                int rating = Convert.ToInt32(item.EmployeeRating);
+                var updateRating = await _context.UpdateEmployeeWallet(id, rating);
+                return Ok(updateRating);
+            }
+            catch (Exception)
+            {
+                return BadRequest();
+            }
+        }
+
     }
 }

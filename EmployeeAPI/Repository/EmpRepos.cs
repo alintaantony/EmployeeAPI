@@ -76,5 +76,20 @@ namespace EmployeeAPI.Repository
             return employee;
         }
 
+        public async Task<Employees> UpdateEmployeeWallet(int id,int item)
+        {
+            Employees employee = await _context.Employees.FindAsync(id);
+            employee.EmployeeWallet = item;
+            await _context.SaveChangesAsync();
+            return employee;
+        }
+
+        public async Task<Employees> UpdateEmployeeRating(int id,int item)
+        {
+            Employees employee = await _context.Employees.FindAsync(id);
+            employee.EmployeeRating = item;
+            await _context.SaveChangesAsync();
+            return employee;
+        }
     }
 }
