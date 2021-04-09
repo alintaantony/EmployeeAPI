@@ -99,7 +99,7 @@ namespace EmployeeAPI.Controllers
             try
             {
                 int rating = Convert.ToInt32(item.EmployeeRating);
-                var updateRating = await _context.UpdateEmployeeWallet(id, rating);
+                var updateRating = await _context.UpdateEmployeeRating(id, rating);
                 return Ok(updateRating);
             }
             catch (Exception)
