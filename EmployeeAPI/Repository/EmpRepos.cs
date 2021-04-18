@@ -29,6 +29,12 @@ namespace EmployeeAPI.Repository
             return item;
         }
 
+        public Employees GetEmployeeByMail(string mail)
+        {
+            Employees item = _context.Employees.Single(emp => emp.EmployeeEmail == mail);
+            return item;
+        }
+
         public async Task<Employees> PostEmployees(Employees item)
         {
             Employees employee = null;

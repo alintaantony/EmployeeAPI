@@ -49,6 +49,30 @@ namespace EmployeeAPI.Controllers
             }
         }
 
+        [HttpGet("GetEmployeeByMail/{mail}")]
+        public IActionResult GetEmployeeByMail(string mail)
+        {
+            _log4net.Info("Get Employee By Mail Was Called !!");
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+            try
+            {
+                var employee = _context.GetEmployeeByMail(mail);
+                _log4net.Info("Employee of Id " + mail + " Was called");
+                if (employee == null)
+                {
+                    return NotFound();
+                }
+                return Ok(employee);
+            }
+            catch (Exception)
+            {
+                return BadRequest();
+            }
+        }
+
         [HttpPost]
         public async Task<IActionResult> PostEmployees(Employees item)
         {
